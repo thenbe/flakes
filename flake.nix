@@ -21,10 +21,29 @@
             --set PLAYWRIGHT_BROWSERS_PATH "${pkgs.playwright-driver.browsers}" \
             --set PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD 1 \
         '';
+
+        playwright-driver-config = {
+          environment.systemPackages = [
+            wrapped-playwright-driver
+          ];
+
+          environment.variables = {
+            PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+            PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
+          };
+        };
       in {
         packages = {
           playwright-driver = wrapped-playwright-driver;
           default = wrapped-playwright-driver;
+        };
+
+        # export config for nixOS (includes package and sets env vars)
+        nixosConfigurations = {
+          playwright-driver = nixpkgs.lib.nixosSystem {
+            system = system;
+            modules = [playwright-driver-config];
+          };
         };
       }
     );
