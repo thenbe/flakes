@@ -35,7 +35,7 @@
       in {
         packages = {
           playwright-driver = wrapped-playwright-driver;
-          default = wrapped-playwright-driver;
+          # default = wrapped-playwright-driver;
         };
 
         # export config for nixOS (includes package and sets env vars)
