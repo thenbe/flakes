@@ -39,12 +39,7 @@
         };
 
         # export config for nixOS (includes package and sets env vars)
-        nixosConfigurations = {
-          playwright-driver = nixpkgs.lib.nixosSystem {
-            system = system;
-            modules = [playwright-driver-config];
-          };
-        };
+        nixosModules.playwright-driver = _: playwright-driver-config;
       }
     );
 }
