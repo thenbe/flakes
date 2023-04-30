@@ -15,7 +15,7 @@
       system: let
         pkgs = nixpkgs.legacyPackages.${system};
 
-        wrapped-playwright = pkgs.runCommand "wrapped-playwright" {buildInputs = [pkgs.makeWrapper];} ''
+        wrapped-playwright-driver = pkgs.runCommand "wrapped-playwright-driver" {buildInputs = [pkgs.makeWrapper];} ''
           mkdir -p "$out/bin"
           makeWrapper "${pkgs.playwright-driver}/bin/playwright" "$out/bin/playwright" \
             --set PLAYWRIGHT_BROWSERS_PATH "${pkgs.playwright-driver.browsers}" \
@@ -23,8 +23,8 @@
         '';
       in {
         packages = {
-          playwright = wrapped-playwright;
-          default = wrapped-playwright;
+          playwright-driver = wrapped-playwright-driver;
+          default = wrapped-playwright-driver;
         };
       }
     );
