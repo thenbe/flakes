@@ -5,11 +5,11 @@
         "systems": "systems"
       },
       "locked": {
-        "lastModified": 1681202837,
-        "narHash": "sha256-H+Rh19JDwRtpVPAWp64F+rlEtxUWBAQW28eAi3SRSzg=",
+        "lastModified": 1685518550,
+        "narHash": "sha256-o2d0KcvaXzTrPRIo0kOLV0/QXHhDQ5DTi+OxcjO8xqY=",
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "cfacdce06f30d2b68473a46042957675eebb3401",
+        "rev": "a1720a10a6cfe8234c0e93907ffe81be440f4cef",
         "type": "github"
       },
       "original": {
@@ -20,16 +20,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1684928879,
-        "narHash": "sha256-Ls3gU4lv5j8wAQXntKv3jg5brCPaeugMfDKxPrPU0Tw=",
+        "lastModified": 1686434400,
+        "narHash": "sha256-/wY7v+kbIpuQ/z5m13HCkpWA3DBWKDfe95ROTFpx0cQ=",
         "owner": "thenbe",
         "repo": "nixpkgs",
-        "rev": "2868d342e29c04ae807fc8e6e3cb5c2facb711bb",
+        "rev": "6618436430fa73ab30f6934e34c52b0878c10264",
         "type": "github"
       },
       "original": {
         "owner": "thenbe",
-        "ref": "playwright-driver-1.34.2",
+        "ref": "playwright-driver-1.35.0",
         "repo": "nixpkgs",
         "type": "github"
       }
