@@ -1,66 +1,41 @@
 {
-  description = "Playwright with Chromium";
+  description = "thenbe's flakes";
 
   inputs = {
-    nixpkgs.url = "github:thenbe/nixpkgs/playwright-driver-1.35.0";
-    flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    crawley.url = "path:./crawley";
+    dt.url = "path:./dt";
+    tableplus.url = "path:./tableplus";
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    flake-utils,
-  }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
+  outputs = inputs@{ flake-parts, crawley, dt, tableplus, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [
+        # To import a flake module
+        # 1. Add foo to inputs
+        # 2. Add foo as a parameter to the outputs function
+        # 3. Add here: foo.flakeModule
+      ];
+      systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+      perSystem = { config, self', inputs', pkgs, system, ... }: {
+        # Per-system attributes can be defined here. The self' and inputs'
+        # module parameters provide easy access to attributes of the same
+        # system.
 
-        wrapped-playwright-driver = pkgs.runCommand "wrapped-playwright-driver" {buildInputs = [pkgs.makeWrapper];} ''
-          mkdir -p "$out/bin"
-          makeWrapper "${pkgs.playwright-driver}/bin/playwright" "$out/bin/playwright" \
-            --set PLAYWRIGHT_BROWSERS_PATH "${pkgs.playwright-driver.browsers}" \
-            --set PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD 1 \
-        '';
-
-        playwright-driver-config = {
-          environment.systemPackages = [
-            wrapped-playwright-driver
-          ];
-
-          environment.variables = {
-            PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
-            PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
-          };
-        };
-      in {
+        # Equivalent to  inputs'.nixpkgs.legacyPackages.hello;
+        # packages.default = pkgs.hello;
         packages = {
-          playwright-driver = wrapped-playwright-driver;
-          # default = wrapped-playwright-driver;
-
-          dt = pkgs.stdenv.mkDerivation rec {
-            pname = "dt";
-            version = "1.1.0";
-            src = pkgs.fetchurl {
-              url = "https://github.com/booniepepper/dt/releases/download/v${version}/x86_64-linux-gnu.tgz";
-              sha256 = "sha256-ciU194O3ppG9IjgxY3HQ2+Fdr7QszxONWXNcN/tPFxA=";
-            };
-            unpackPhase = ''
-              tar -xzf $src
-            '';
-            dontBuild = true;
-            installPhase = ''
-              mkdir -p $out/bin
-              cp x86_64-linux-gnu/bin/dt $out/bin/dt
-            '';
-            meta = {
-              description = "dt binary";
-              homepage = "https://github.com/booniepepper/dt";
-            };
-          };
+          # default =
+          crawley = crawley.outputs.packages.${system}.default;
+          dt = dt.outputs.packages.${system}.default;
+          tableplus = tableplus.outputs.packages.${system}.default;
         };
+      };
+      flake = {
+        # The usual flake attributes can be defined here, including system-
+        # agnostic ones like nixosModule and system-enumerating ones, although
+        # those are more easily expressed in perSystem.
 
-        # export config for nixOS (includes package and sets env vars)
-        nixosModules.playwright-driver = _: playwright-driver-config;
-      }
-    );
+      };
+    };
 }
