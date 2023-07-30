@@ -3,12 +3,13 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    aider.url = "path:./aider";
     crawley.url = "path:./crawley";
     dt.url = "path:./dt";
     tableplus.url = "path:./tableplus";
   };
 
-  outputs = inputs@{ flake-parts, crawley, dt, tableplus, ... }:
+  outputs = inputs@{ flake-parts, aider, crawley, dt, tableplus, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         # To import a flake module
@@ -26,9 +27,13 @@
         # packages.default = pkgs.hello;
         packages = {
           # default =
+          aider = aider.outputs.packages.${system}.default;
           crawley = crawley.outputs.packages.${system}.default;
           dt = dt.outputs.packages.${system}.default;
           tableplus = tableplus.outputs.packages.${system}.default;
+        };
+        devShells = {
+          aider = aider.outputs.devShells.${system}.default;
         };
       };
       flake = {
