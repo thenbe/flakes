@@ -220,7 +220,7 @@
       },
       "locked": {
         "lastModified": 1,
-        "narHash": "sha256-FNDyrXWhPu1nwDQ8ZcfJwnsU0qa0ewmyY1l3UCArbEg=",
+        "narHash": "sha256-lCVhhIJ9s4no1CQg7of5iEqZpDr3pa4T7uuYDv5AcWY=",
         "path": "./playwright",
         "type": "path"
       },
