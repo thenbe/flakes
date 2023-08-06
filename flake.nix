@@ -7,9 +7,10 @@
     crawley.url = "path:./crawley";
     dt.url = "path:./dt";
     tableplus.url = "path:./tableplus";
+    playwright.url = "path:./playwright";
   };
 
-  outputs = inputs@{ flake-parts, aider, crawley, dt, tableplus, ... }:
+  outputs = inputs@{ flake-parts, aider, crawley, dt, tableplus, playwright, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         # To import a flake module
@@ -31,9 +32,11 @@
           crawley = crawley.outputs.packages.${system}.default;
           dt = dt.outputs.packages.${system}.default;
           tableplus = tableplus.outputs.packages.${system}.default;
+          playwright-driver = playwright.outputs.packages.${system}.playwright-driver;
         };
         devShells = {
           aider = aider.outputs.devShells.${system}.default;
+          playwright-driver = playwright.outputs.devShells.${system}.default;
         };
       };
       flake = {
