@@ -12,17 +12,17 @@
         luaEnv = pkgs.lua5_3.withPackages (ps: with ps; [
           luaposix
           lua-shepi
+          lua
         ]);
         brotab-modi = pkgs.stdenv.mkDerivation {
           name = "brotab-modi";
-          buildInputs = [ pkgs.brotab ];
-          propagatedBuildInputs = [ luaEnv pkgs.lua5_3 ];
+          buildInputs = [ pkgs.brotab luaEnv ];
           src = ./brotab-modi.lua;
           dontUnpack = true;
           installPhase = ''
             mkdir -p $out/bin
-            cp $src $out/bin/brotab-modi
-            chmod +x $out/bin/brotab-modi
+            cp $src $out/bin/brotab-modi.lua
+            chmod +x $out/bin/brotab-modi.lua
           '';
         };
       in
@@ -33,7 +33,7 @@
         };
         apps.brotab-modi = {
           type = "app";
-          program = "${brotab-modi}/bin/brotab-modi";
+          program = "${brotab-modi}/bin/brotab-modi.lua";
         };
       }
     );
