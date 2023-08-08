@@ -29,6 +29,7 @@
       {
         packages = {
           default = brotab-modi;
+          inherit brotab-modi;
         };
         apps.brotab-modi = {
           type = "app";

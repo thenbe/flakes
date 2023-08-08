@@ -34,6 +34,7 @@
           dt = dt.outputs.packages.${system}.default;
           tableplus = tableplus.outputs.packages.${system}.default;
           playwright-driver = playwright.outputs.packages.${system}.playwright-driver;
+          brotab-modi = brotab.outputs.packages.${system}.brotab-modi;
         };
         apps = {
           brotab-modi = brotab.outputs.apps.${system}.brotab-modi;
