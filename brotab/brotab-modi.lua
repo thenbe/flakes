@@ -29,5 +29,6 @@ else
 	-- select the tab in the browser window
 	os.execute(string.format("bt activate %s", id))
 	-- focus the browser window (we might need a tiny delay here to ensure the title is consistently set)
+	os.execute("sleep 0.025s")
 	os.execute(string.format("wmctrl -a %s", title))
 end
