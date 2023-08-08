@@ -8,9 +8,10 @@
     dt.url = "path:./dt";
     tableplus.url = "path:./tableplus";
     playwright.url = "path:./playwright";
+    brotab.url = "path:./brotab";
   };
 
-  outputs = inputs@{ flake-parts, aider, crawley, dt, tableplus, playwright, ... }:
+  outputs = inputs@{ flake-parts, aider, crawley, dt, tableplus, playwright, brotab, ... }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       imports = [
         # To import a flake module
@@ -33,6 +34,9 @@
           dt = dt.outputs.packages.${system}.default;
           tableplus = tableplus.outputs.packages.${system}.default;
           playwright-driver = playwright.outputs.packages.${system}.playwright-driver;
+        };
+        apps = {
+          brotab-modi = brotab.outputs.apps.${system}.brotab-modi;
         };
         devShells = {
           aider = aider.outputs.devShells.${system}.default;
