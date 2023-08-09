@@ -1,23 +1,8 @@
 {
   "nodes": {
-    "crawley": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-rFkP+OYtk0v1299bNesMXxp6i1UYA/PAwGar//vb08c=",
-        "path": "./crawley",
-        "type": "path"
-      },
-      "original": {
-        "path": "./crawley",
-        "type": "path"
-      }
-    },
     "dt": {
       "inputs": {
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs"
       },
       "locked": {
         "lastModified": 1,
@@ -116,22 +101,6 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1691472822,
-        "narHash": "sha256-XVfYZ2oB3lNPVq6sHCY9WkdQ8lHoIDzzbpg8bB6oBxA=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "41c7605718399dcfa53dd7083793b6ae3bc969ff",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_4": {
-      "locked": {
         "lastModified": 1691297140,
         "narHash": "sha256-CQR4Qloxv6gGgENEwkRgm+n8gJsi9qEz6F0Lcl9P6FM=",
         "owner": "thenbe",
@@ -146,7 +115,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_5": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1691472822,
         "narHash": "sha256-XVfYZ2oB3lNPVq6sHCY9WkdQ8lHoIDzzbpg8bB6oBxA=",
@@ -165,7 +134,7 @@
     "playwright": {
       "inputs": {
         "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1,
@@ -180,11 +149,10 @@
     },
     "root": {
       "inputs": {
-        "crawley": "crawley",
         "dt": "dt",
         "flake-utils": "flake-utils",
         "lua-shepi-nixpkgs": "lua-shepi-nixpkgs",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_2",
         "playwright": "playwright",
         "tableplus": "tableplus"
       }
@@ -221,7 +189,7 @@
     },
     "tableplus": {
       "inputs": {
-        "nixpkgs": "nixpkgs_5"
+        "nixpkgs": "nixpkgs_4"
       },
       "locked": {
         "lastModified": 1,
