@@ -33,24 +33,6 @@
         "type": "github"
       }
     },
-    "flake-utils_2": {
-      "inputs": {
-        "systems": "systems_2"
-      },
-      "locked": {
-        "lastModified": 1689068808,
-        "narHash": "sha256-6ixXo3wt24N/melDWjq70UuHQLxGV8jZvooRanIHXw0=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "919d646de7be200f3bf08cb76ae1f09402b6f9b4",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "lua-shepi-nixpkgs": {
       "locked": {
         "lastModified": 1691466264,
@@ -101,22 +83,6 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1691297140,
-        "narHash": "sha256-CQR4Qloxv6gGgENEwkRgm+n8gJsi9qEz6F0Lcl9P6FM=",
-        "owner": "thenbe",
-        "repo": "nixpkgs",
-        "rev": "0d440a4e3784ff06a194102a2dcfb767f546a90f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thenbe",
-        "ref": "playwright-driver-1.36.2",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
-    "nixpkgs_4": {
-      "locked": {
         "lastModified": 1691472822,
         "narHash": "sha256-XVfYZ2oB3lNPVq6sHCY9WkdQ8lHoIDzzbpg8bB6oBxA=",
         "owner": "NixOS",
@@ -131,29 +97,12 @@
         "type": "github"
       }
     },
-    "playwright": {
-      "inputs": {
-        "flake-utils": "flake-utils_2",
-        "nixpkgs": "nixpkgs_3"
-      },
-      "locked": {
-        "lastModified": 1,
-        "narHash": "sha256-lCVhhIJ9s4no1CQg7of5iEqZpDr3pa4T7uuYDv5AcWY=",
-        "path": "./playwright",
-        "type": "path"
-      },
-      "original": {
-        "path": "./playwright",
-        "type": "path"
-      }
-    },
     "root": {
       "inputs": {
         "dt": "dt",
         "flake-utils": "flake-utils",
         "lua-shepi-nixpkgs": "lua-shepi-nixpkgs",
         "nixpkgs": "nixpkgs_2",
-        "playwright": "playwright",
         "tableplus": "tableplus"
       }
     },
@@ -172,24 +121,9 @@
         "type": "github"
       }
     },
-    "systems_2": {
-      "locked": {
-        "lastModified": 1681028828,
-        "narHash": "sha256-Vy1rq5AaRuLzOxct8nz4T6wlgyUR7zLU309k9mBC768=",
-        "owner": "nix-systems",
-        "repo": "default",
-        "rev": "da67096a3b9bf56a91d16901293e51ba5b49a27e",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-systems",
-        "repo": "default",
-        "type": "github"
-      }
-    },
     "tableplus": {
       "inputs": {
-        "nixpkgs": "nixpkgs_4"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1,

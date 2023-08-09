@@ -7,10 +7,9 @@
     lua-shepi-nixpkgs.url = "github:thenbe/nixpkgs/lua-shepi-1.4.1"; # TODO: only for lua-shepi
     dt.url = "path:./dt";
     tableplus.url = "path:./tableplus";
-    playwright.url = "path:./playwright";
   };
 
-  outputs = { self, nixpkgs, flake-utils, lua-shepi-nixpkgs, dt, tableplus, playwright }:
+  outputs = { self, nixpkgs, flake-utils, lua-shepi-nixpkgs, dt, tableplus }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -27,7 +26,6 @@
           inherit crawley;
           dt = dt.outputs.packages.${system}.default;
           tableplus = tableplus.outputs.packages.${system}.default;
-          playwright-driver = playwright.outputs.packages.${system}.playwright-driver;
         };
 
         apps = {
@@ -36,7 +34,6 @@
 
         devShells = {
           aider = pkgs.mkShell { packages = [ aider pkgs.universal-ctags ]; };
-          playwright-driver = playwright.outputs.devShells.${system}.default;
         };
 
         # flakes = { };
