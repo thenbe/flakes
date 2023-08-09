@@ -4,19 +4,16 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    lua-shepi-nixpkgs.url = "github:thenbe/nixpkgs/lua-shepi-1.4.1"; # TODO: only for lua-shepi
     dt.url = "path:./dt";
     tableplus.url = "path:./tableplus";
   };
 
-  outputs = { self, nixpkgs, flake-utils, lua-shepi-nixpkgs, dt, tableplus }:
+  outputs = { self, nixpkgs, flake-utils, dt, tableplus }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         aider = pkgs.callPackage ./aider/default.nix { };
-        brotab-modi = pkgs.callPackage ./brotab/default.nix {
-          pkgs = lua-shepi-nixpkgs.legacyPackages.${system};
-        };
+        brotab-modi = pkgs.callPackage ./brotab/default.nix { };
         crawley = pkgs.callPackage ./crawley/default.nix { };
       in
       {

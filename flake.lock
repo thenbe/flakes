@@ -33,22 +33,6 @@
         "type": "github"
       }
     },
-    "lua-shepi-nixpkgs": {
-      "locked": {
-        "lastModified": 1691466264,
-        "narHash": "sha256-si02qoKns0QqiwhCesuRtKSAqTe/f2aGGbyFIeiBda8=",
-        "owner": "thenbe",
-        "repo": "nixpkgs",
-        "rev": "1e9bf9a36024200db00773350ecf2c00e53d8b58",
-        "type": "github"
-      },
-      "original": {
-        "owner": "thenbe",
-        "ref": "lua-shepi-1.4.1",
-        "repo": "nixpkgs",
-        "type": "github"
-      }
-    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1691472822,
@@ -101,7 +85,6 @@
       "inputs": {
         "dt": "dt",
         "flake-utils": "flake-utils",
-        "lua-shepi-nixpkgs": "lua-shepi-nixpkgs",
         "nixpkgs": "nixpkgs_2",
         "tableplus": "tableplus"
       }
