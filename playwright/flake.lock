@@ -20,16 +20,16 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1691297140,
-        "narHash": "sha256-CQR4Qloxv6gGgENEwkRgm+n8gJsi9qEz6F0Lcl9P6FM=",
+        "lastModified": 1691757985,
+        "narHash": "sha256-PVruEh37iII89/GFHdzLQMZEhgdp2casoGO7HQGh270=",
         "owner": "thenbe",
         "repo": "nixpkgs",
-        "rev": "0d440a4e3784ff06a194102a2dcfb767f546a90f",
+        "rev": "56cbeb814c5e6149c408bb9ad9fd22ab51d1220e",
         "type": "github"
       },
       "original": {
         "owner": "thenbe",
-        "ref": "playwright-driver-1.36.2",
+        "ref": "playwright-driver-1.37.0",
         "repo": "nixpkgs",
         "type": "github"
       }
