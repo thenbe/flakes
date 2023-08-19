@@ -1,13 +1,13 @@
 { pkgs }:
 pkgs.python3Packages.buildPythonPackage rec {
   pname = "aider";
-  version = "0.10.1";
+  version = "0.12.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "paul-gauthier";
     repo = "aider";
     rev = "v${version}";
-    hash = "sha256-I9iD3BU4wPTCW4A1sD493gcGNQ44aMI9XYTc9MYGMXI=";
+    hash = "sha256-vPtiOsGZ5xkLjB8mZKQo0YVJbJuk55azImJtPVhHJO4=";
   };
 
   # BUG: not taking effect, use sed in postPatch instead
@@ -20,39 +20,41 @@ pkgs.python3Packages.buildPythonPackage rec {
 
   # https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md#handling-dependencies-handling-dependencies
   propagatedBuildInputs = with pkgs.python3Packages; [
-    pythonRelaxDepsHook
+    GitPython
     aiosignal
     async-timeout
     attrs
+    backoff
     certifi
     charset-normalizer
+    configargparse
+    diskcache
     frozenlist
     gitdb
-    GitPython
     idna
+    jsonschema
     markdown-it-py
     mdurl
     multidict
+    networkx
+    numpy
     openai
     prompt-toolkit
     pygments
+    pytest
+    pythonRelaxDepsHook
+    pyyaml
     requests
     rich
+    scipy
     smmap
+    sounddevice
+    soundfile
+    tiktoken
     tqdm
     urllib3
     wcwidth
     yarl
-    pytest
-    tiktoken
-    configargparse
-    pyyaml
-    backoff
-    networkx
-    diskcache
-    numpy
-    scipy
-    jsonschema
   ];
 
   doCheck = false; # tries to make network requests
