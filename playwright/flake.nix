@@ -2,7 +2,7 @@
   description = "Playwright with Chromium";
   inputs = {
     # nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    nixpkgs.url = "github:thenbe/nixpkgs/playwright-driver-1.37.0";
+    nixpkgs.url = "github:thenbe/nixpkgs/playwright-driver-1.37.1";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
