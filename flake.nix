@@ -15,12 +15,14 @@
         aider = pkgs.callPackage ./aider/default.nix { };
         brotab-modi = pkgs.callPackage ./brotab/default.nix { };
         crawley = pkgs.callPackage ./crawley/default.nix { };
+        katana = pkgs.callPackage ./katana/default.nix { };
       in
       {
         packages = {
           inherit aider;
           inherit brotab-modi;
           inherit crawley;
+          inherit katana;
           dt = dt.outputs.packages.${system}.default;
           tableplus = tableplus.outputs.packages.${system}.default;
         };
