@@ -4,10 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    tableplus.url = "path:./tableplus";
   };
 
-  outputs = { self, nixpkgs, flake-utils, tableplus }:
+  outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
@@ -16,6 +15,7 @@
         crawley = pkgs.callPackage ./crawley/default.nix { };
         dt = pkgs.callPackage ./dt/default.nix { };
         katana = pkgs.callPackage ./katana/default.nix { };
+        tableplus = pkgs.callPackage ./tableplus/default.nix { };
       in
       {
         packages = {
@@ -24,7 +24,7 @@
           inherit crawley;
           inherit katana;
           inherit dt;
-          tableplus = tableplus.outputs.packages.${system}.default;
+          inherit tableplus;
         };
 
         apps = {
