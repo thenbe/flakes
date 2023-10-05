@@ -37,11 +37,11 @@
             packages = with pkgs; [
               cmake
               cudaPackages_12_2.cudatoolkit
-              cudaPackages_12_2.cuda_nvcc
+              # cudaPackages_12_2.cuda_nvcc
             ];
-            shellHook = ''
-              export CUDA_VERSION=$(${pkgs.cudaPackages_12_2.cuda_nvcc}/bin/nvcc --version | ${pkgs.gnused}/bin/sed -n 's/^.*release \([0-9]\+\)\.\([0-9]\+\).*$/\1/p')
-            '';
+            # shellHook = ''
+            #   export CUDA_VERSION=$(${pkgs.cudaPackages_12_2.cuda_nvcc}/bin/nvcc --version | ${pkgs.gnused}/bin/sed -n 's/^.*release \([0-9]\+\)\.\([0-9]\+\).*$/\1/p')
+            # '';
           };
         };
 
