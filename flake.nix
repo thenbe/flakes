@@ -4,17 +4,17 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
-    dt.url = "path:./dt";
     tableplus.url = "path:./tableplus";
   };
 
-  outputs = { self, nixpkgs, flake-utils, dt, tableplus }:
+  outputs = { self, nixpkgs, flake-utils, tableplus }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         aider = pkgs.callPackage ./aider/default.nix { };
         brotab-modi = pkgs.callPackage ./brotab/default.nix { };
         crawley = pkgs.callPackage ./crawley/default.nix { };
+        dt = pkgs.callPackage ./dt/default.nix { };
         katana = pkgs.callPackage ./katana/default.nix { };
       in
       {
@@ -23,7 +23,7 @@
           inherit brotab-modi;
           inherit crawley;
           inherit katana;
-          dt = dt.outputs.packages.${system}.default;
+          inherit dt;
           tableplus = tableplus.outputs.packages.${system}.default;
         };
 
