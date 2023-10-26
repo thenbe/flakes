@@ -6,7 +6,7 @@ local rofi_markup = print("\0markup-rows\x1ftrue\n")
 local function GetTabs(sin, sout, serr)
 	local delim = print("\x00delim\x1f\x0f")
 	local markup_s =
-		'%s\n<span foreground="#6B838E">%s\n</span><span foreground="#44555D"><small><i>%s</i></small></span>\x0f'
+		'%s | <span foreground="#6B838E">%s | </span><span foreground="#44555D"><small><i>%s</i></small></span>\x0f'
 	local pipe_in = sin:read("a")
 	for line in pipe_in:gmatch("([^\n]*)\n") do
 		local id, title, url = line:match("([^\t]+)\t([^\t]+)\t([^\t]+)")
