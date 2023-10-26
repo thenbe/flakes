@@ -16,6 +16,7 @@
         dt = pkgs.callPackage ./dt/default.nix { };
         katana = pkgs.callPackage ./katana/default.nix { };
         tableplus = pkgs.callPackage ./tableplus/default.nix { };
+        play = pkgs.callPackage ./play/default.nix { };
       in
       {
         packages = {
@@ -25,6 +26,7 @@
           inherit katana;
           inherit dt;
           inherit tableplus;
+          inherit play;
         };
 
         apps = {
