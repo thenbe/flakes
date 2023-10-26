@@ -24,11 +24,38 @@ else
 	local id = args[1]:match("<i>(.-)</i>")
 	-- title is whatever is before the first <span> tag
 	local title = args[1]:match("^(.-)<span")
+	-- remove last character (tab)
+	title = title:sub(1, -2)
 	-- local url = args[1]:match("<small><i>(.-)</i></small>")
 
+	-- log id and title. To read logs: `journalctl -t brotab`
+	-- os.execute(string.format("echo 'id: %s, title: %s' | systemd-cat -t brotab", id, title))
+
 	-- select the tab in the browser window
-	os.execute(string.format("bt activate %s", id))
-	-- focus the browser window (we might need a tiny delay here to ensure the title is consistently set)
-	os.execute("sleep 0.025s")
-	os.execute(string.format("wmctrl -a %s", title))
+	os.execute(string.format("bt activate '%s'", id))
+
+	-- find the correct browser window
+	local handle = io.popen("wmctrl -l")
+
+	if not handle then
+		print("Failed to run wmctrl")
+		return
+	end
+
+	local window_id = nil
+	-- Iterate over each line in the output
+	for line in handle:lines() do
+		-- Check if title is a substring of the line
+		if string.find(line, title, 1, true) then
+			print(line)
+			window_id = line:match("^(.-)%s")
+			break
+		end
+	end
+
+	-- Close the handle
+	handle:close()
+
+	-- focus the browser window (schedule the command to run after this lua script exits)
+	os.execute("nohup sh -c '(sleep 0.2; wmctrl -i -a " .. window_id .. ") &' > /dev/null 2>&1")
 end
