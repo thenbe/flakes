@@ -37,6 +37,9 @@ else
 	log(select_tab_command)
 	os.execute(select_tab_command)
 
+	-- Add a delay to ensure the window title has been updated
+	os.execute("sleep 0.05")
+
 	-- find the correct browser window
 	local handle = io.popen("wmctrl -l")
 
