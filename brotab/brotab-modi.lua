@@ -16,38 +16,41 @@ local function GetTabs(sin, sout, serr)
 	end
 end
 
+---To read logs: `journalctl -ft brotab`
+local function log(msg)
+	os.execute(string.format("echo '%s' | systemd-cat -t brotab", msg))
+end
+
 args = { ... }
 local pipe = bp.bt("list") | bp.tac("-s", "\n") | bp.fun(GetTabs)
 if not args[1] then
 	io.write(pipe())
 else
-	local id = args[1]:match("<i>(.-)</i>")
-	-- title is whatever is before the first <span> tag
-	local title = args[1]:match("^(.-)<span")
-	-- remove last character (tab)
-	title = title:sub(1, -2)
-	-- local url = args[1]:match("<small><i>(.-)</i></small>")
-
-	-- log id and title. To read logs: `journalctl -t brotab`
-	-- os.execute(string.format("echo 'id: %s, title: %s' | systemd-cat -t brotab", id, title))
+	-- patterns based on `markup_s` in `GetTabs`
+	local id = args[1]:match("<small><i>(.-)</i></small>")
+	local title = args[1]:match("^(.-) | <span") -- title is whatever is before the first ` | <span>`
+	local url = args[1]:match('| <span foreground="#A0B0C0">(.-)</span> |')
+	log(string.format("id: %s, title: %s, url: %s", id, title, url))
 
 	-- select the tab in the browser window
-	os.execute(string.format("bt activate '%s'", id))
+	local select_tab_command = string.format("bt activate '%s'", id)
+	log(select_tab_command)
+	os.execute(select_tab_command)
 
 	-- find the correct browser window
 	local handle = io.popen("wmctrl -l")
 
 	if not handle then
-		print("Failed to run wmctrl")
+		log("Failed to run wmctrl")
 		return
 	end
 
 	local window_id = nil
 	-- Iterate over each line in the output
 	for line in handle:lines() do
+		-- log(line)
 		-- Check if title is a substring of the line
 		if string.find(line, title, 1, true) then
-			print(line)
 			window_id = line:match("^(.-)%s")
 			break
 		end
@@ -56,6 +59,13 @@ else
 	-- Close the handle
 	handle:close()
 
+	if window_id == nil then
+		log("Failed to find window id")
+		return
+	end
+
 	-- focus the browser window (schedule the command to run after this lua script exits)
-	os.execute("nohup sh -c '(sleep 0.2; wmctrl -i -a " .. window_id .. ") &' > /dev/null 2>&1")
+	local select_window_command = "nohup sh -c '(sleep 0.2; wmctrl -i -a " .. window_id .. ") &' > /dev/null 2>&1"
+	log(select_window_command)
+	os.execute(select_window_command)
 end
