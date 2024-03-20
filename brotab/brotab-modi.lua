@@ -3,14 +3,39 @@
 local bp = require("lua-shepi")
 local rofi_markup = print("\0markup-rows\x1ftrue\n")
 
-local function GetTabs(sin, sout, serr)
-	local delim = print("\x00delim\x1f\x0f")
+local rpad = function (s, l, c)
+	local res = s .. string.rep(c or ' ', l - #s)
+	return res
+end
+
+local function format_row(title, url, id)
+	local SECTION_1_WIDTH = 100 -- title width
+	local SECTION_2_WIDTH = 100 -- url width
+
+	local formatted_title = title or ''
+	local formatted_url = url or ''
+
+	-- rm chars the interfere with alignment (e.g. em-dash, en-dash, etc.)
+	formatted_title = formatted_title:gsub("—", ""):gsub('·', "")
+
+	-- add padding
+	formatted_title =  rpad(formatted_title, SECTION_1_WIDTH)
+	formatted_url = rpad(formatted_url, SECTION_2_WIDTH)
+
 	local markup_s =
-		'%s | <span foreground="#A0B0C0">%s</span> | <span foreground="#70787A"><small><i>%s</i></small></span>\x0f'
+	'|    %s | <span foreground="#A0B0C0">%s</span> | <span foreground="#70787A"><small><i>%s</i></small></span>\x0f'
+
+	return string.format(markup_s, formatted_title, formatted_url, id)
+end
+
+local function GetTabs(sin, sout, serr)
+---@diagnostic disable-next-line: unused-local
+	local delim = print("\x00delim\x1f\x0f")
 	local pipe_in = sin:read("a")
 	for line in pipe_in:gmatch("([^\n]*)\n") do
-		local id, title, url = line:match("([^\t]+)\t([^\t]+)\t([^\t]+)")
-		local result = string.format(markup_s, title, url:match("https?://[www%.]*(.*)"), id)
+		local id, title, full_url = line:match("([^\t]+)\t([^\t]+)\t([^\t]+)")
+		local url = full_url:match("https?://[www%.]*(.*)")
+		local result = format_row(title, url, id)
 		local prune_s = result:gsub("&", "&amp;")
 		sout:write(prune_s)
 	end
