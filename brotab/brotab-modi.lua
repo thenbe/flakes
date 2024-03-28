@@ -41,8 +41,12 @@ local function GetTabs(sin, sout, serr)
 	end
 end
 
+LOG_LEVEL = 2
 ---To read logs: `journalctl -ft brotab`
-local function log(msg)
+local function log(msg, log_level)
+	if log_level and log_level <= LOG_LEVEL then
+		return
+	end
 	os.execute(string.format("echo '%s' | systemd-cat -t brotab", msg))
 end
 
@@ -52,6 +56,7 @@ if not args[1] then
 	io.write(pipe())
 else
 	-- patterns based on `markup_s` in `GetTabs`
+	log('args[1]: '.. args[1], 2)
 	local id = args[1]:match("<small><i>(.-)</i></small>")
 	local title = args[1]:match("^(.-) | <span") -- title is whatever is before the first ` | <span>`
 	local url = args[1]:match('| <span foreground="#A0B0C0">(.-)</span> |')
@@ -76,7 +81,7 @@ else
 	local window_id = nil
 	-- Iterate over each line in the output
 	for line in handle:lines() do
-		-- log(line)
+		log(line, 2)
 		-- Check if title is a substring of the line
 		if string.find(line, title, 1, true) then
 			window_id = line:match("^(.-)%s")
@@ -91,6 +96,7 @@ else
 		log("Failed to find window id")
 		return
 	end
+	log("window_id: " .. tostring(window_id), 2)
 
 	-- focus the browser window (schedule the command to run after this lua script exits)
 	local select_window_command = "nohup sh -c '(sleep 0.2; wmctrl -i -a " .. window_id .. ") &' > /dev/null 2>&1"
