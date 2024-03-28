@@ -58,7 +58,8 @@ else
 	-- patterns based on `markup_s` in `GetTabs`
 	log('args[1]: '.. args[1], 2)
 	local id = args[1]:match("<small><i>(.-)</i></small>")
-	local title = args[1]:match("^(.-) | <span") -- title is whatever is before the first ` | <span>`
+	local title = args[1]:match("^|(.-) | <span") -- title is whatever is between the first `|` and ` | <span>`
+	title = title:gsub("^%s*(.-)%s*$", "%1") -- trim title
 	local url = args[1]:match('| <span foreground="#A0B0C0">(.-)</span> |')
 	log(string.format("id: %s, title: %s, url: %s", id, title, url))
 
