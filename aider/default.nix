@@ -29,6 +29,7 @@ pkgs.python3Packages.buildPythonPackage rec {
     charset-normalizer
     configargparse
     diskcache
+    python-dotenv
     frozenlist
     gitdb
     idna
@@ -55,6 +56,7 @@ pkgs.python3Packages.buildPythonPackage rec {
     urllib3
     wcwidth
     yarl
+    streamlit
   ];
 
   doCheck = false; # tries to make network requests
