@@ -1,13 +1,13 @@
 { pkgs }:
 pkgs.python3Packages.buildPythonPackage rec {
   pname = "aider";
-  version = "0.12.0";
+  version = "0.37.0";
 
   src = pkgs.fetchFromGitHub {
     owner = "paul-gauthier";
     repo = "aider";
     rev = "v${version}";
-    hash = "sha256-vPtiOsGZ5xkLjB8mZKQo0YVJbJuk55azImJtPVhHJO4=";
+    hash = "sha256-6kJTagYcHvUXu3YrbMLqCYwDkGgfLVTtbjoTIIuA6SM=";
   };
 
   # BUG: not taking effect, use sed in postPatch instead
