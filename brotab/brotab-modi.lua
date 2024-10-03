@@ -8,6 +8,12 @@ local rpad = function (s, l, c)
 	return res
 end
 
+---@param title string
+local function clean_string(title)
+	local formatted_title = title:gsub("—", ""):gsub('·', "")
+	return formatted_title
+end
+
 local function format_row(title, url, id)
 	local SECTION_1_WIDTH = 100 -- title width
 	local SECTION_2_WIDTH = 100 -- url width
@@ -16,7 +22,7 @@ local function format_row(title, url, id)
 	local formatted_url = url or ''
 
 	-- rm chars the interfere with alignment (e.g. em-dash, en-dash, etc.)
-	formatted_title = formatted_title:gsub("—", ""):gsub('·', "")
+	formatted_title = clean_string(formatted_title)
 
 	-- add padding
 	formatted_title =  rpad(formatted_title, SECTION_1_WIDTH)
@@ -84,7 +90,7 @@ else
 	for line in handle:lines() do
 		log(line, 2)
 		-- Check if title is a substring of the line
-		if string.find(line, title, 1, true) then
+		if string.find(clean_string(line), title, 1, true) then
 			window_id = line:match("^(.-)%s")
 			break
 		end
